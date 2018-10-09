@@ -1,0 +1,53 @@
+{
+  "name": "vuex",
+  "version": "1.0.0",
+  "description": "vuex",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btea/vuex.git"
+  },
+  "author": "btea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/btea/vuex/issues"
+  },
+  "homepage": "https://github.com/btea/vuex#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-stage-2": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "http-proxy-middleware": "^0.19.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "style-loader": "^0.23.0",
+    "vue": "^2.5.17",
+    "vue-loader": "^15.4.1",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7",
+    "webpackbar": "^2.6.3"
+  },
+  "dependencies": {
+    "animejs": "^2.2.0",
+    "axios": "^0.18.0",
+    "echarts": "^4.1.0",
+    "element-ui": "^2.4.6",
+    "es6-promise": "^4.2.4",
+    "express": "^4.16.3",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  }
+}
