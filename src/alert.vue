@@ -1,5 +1,5 @@
 <template>
-    <div class="alert" v-html="tips" ></div>
+    <div class="alert" v-html="tips" @click="sure"></div>
 </template>
 
 <script>
@@ -18,6 +18,9 @@ export default {
         this.tips = this.render(this.$slots.default);
     },
     methods: {
+        sure(){
+            this.$emit('zeng',20);
+        },
         render(arr){
             console.log(arr);
             let _self = this;
