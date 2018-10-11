@@ -15,6 +15,8 @@
             <div>456</div>
             弹窗
         </Alert>
+
+        <v-uploader></v-uploader>
     </div>
 </template>
 
