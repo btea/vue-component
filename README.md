@@ -9,5 +9,4 @@
 ### [vuepress](http://caibaojian.com/vuepress/guide/)
 ### [mpvue](http://mpvue.com/)
 
-:tada:  :100:
-:smile: :+1: :-1: :rabbit: :dog:
+:smile: :rabbit: :dog:
