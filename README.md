@@ -4,7 +4,10 @@
 [browserlist说明](https://www.npmjs.com/package/browserslist)
 ##### less文件使用@import导入别的less文件时，必须使用;结尾，不然webpack编译会报错
 
+### [emoji](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
+
 ### [vuepress](http://caibaojian.com/vuepress/guide/)
 ### [mpvue](http://mpvue.com/)
 
 :tada:  :100:
+:smile: :+1: :-1: :rabbit: :dog:
