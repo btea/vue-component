@@ -16,7 +16,7 @@
             弹窗
         </Alert>
 
-        <v-uploader></v-uploader>
+        <!-- <v-uploader></v-uploader> -->
     </div>
 </template>
 
