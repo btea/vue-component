@@ -99,7 +99,7 @@ class Vue{
             }
         }
     }
-
+    
     // 解析dom里处理纯双花括号的操作
     compileText(node,type){
         let reg = /\{\{(.*?)\}\}/g, txt = node.textContent;
