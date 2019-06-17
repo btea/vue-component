@@ -6,7 +6,7 @@
         <Button type="warning"></Button>
         <Button type="warning" ghost></Button>
         <Button type="error">自定义按钮</Button>
-        <Button type="error" ghost>自定义按钮，样式修改</Button>
+        <Button type="error" ghost v-drag>自定义按钮，样式修改</Button>
         <Alert num="12" @zeng="bili">
             <div style="color: #6cf;" class="con">
                 <p>第一个</p>
@@ -17,6 +17,13 @@
         </Alert>
         <div>github commit test</div>
         <!-- <v-uploader></v-uploader> -->
+        <be-table 
+            :data="water.data" 
+            :header="water.header" 
+            :key="tableKey"
+            :sortable="sort"
+            :cell-style="cellStyle">
+        </be-table>
     </div>
 </template>
 
@@ -24,22 +31,64 @@
 // 局部注册
 // import Button from './button/button'
 // console.log(Button);
+
+import beTable  from './be-table';
+import beTableColumn from './be-table-column';
+
 export default {
     data(){
         return {
-            news: 'no game no life'
+            news: 'no game no life',
+            arr: new Array(10),
+            water: {
+                header: [
+                    {prop: 'station', label: '水位站', width: '80'},
+                    {prop: 'rain', label: '当前水位(m)', width: '75'},
+                    {prop: 'limit', label: '汛限水位(m)', width: '75'},
+                    {prop: 'overstep', label: '超汛限水位(m)', width: '90'},
+                    {prop: 'status', label: '关注', width: '40'}
+                ],
+                data: (() => {
+                    let arr = [], len = 10;
+                    for(let i = 0; i < len; i++){
+                        arr.push({
+                            stationId: '123',
+                            station: '站名站名站名站名站名站名站名站名站名站名站名',
+                            rain: this.randomVal(15,5),
+                            limit: this.randomVal(30,20),
+                            overstep: '-5',
+                            lon: 28.1,
+                            lat: 120.9,
+                            focus: 1
+                        })
+                    }
+                    return arr;
+                })()
+            },
+            sort: [1, 2, 3],
+            tableKey: Math.random().toString(16).slice(2)
         }
     },
     methods: {
+        randomVal(max, min){
+            return Math.floor(Math.random() * (max - min  + 1) + min);
+        },
         bili(target){
             console.log(target);
             console.log('bilibili');
+        },
+        cellStyle(i, item){
+            console.log(i, item);
         }
-    }
+    },
     // 局部注册组件
     // components: {
         // Button: Button
     // },
+    components: {
+        beTable,
+        beTableColumn
+    }
 }
 </script>
 

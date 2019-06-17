@@ -4,7 +4,7 @@
   "description": "vuex",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "s": "webpack-dev-server --mode development --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +31,8 @@
     "http-proxy-middleware": "^0.19.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "vue": "^2.5.17",
     "vue-loader": "^15.4.1",
@@ -48,6 +50,8 @@
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
     "muse-ui": "^3.0.1",
+    "scss": "^0.2.4",
+    "scss-loader": "0.0.1",
     "vue-router": "^3.0.1",
     "vue-uploader": "^0.1.2",
     "vuex": "^3.0.1"

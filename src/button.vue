@@ -80,13 +80,13 @@ export default {
     },
     mounted(){
         console.log(this.$data);
-        let slots = this.$slots.default,self = this;
+        let slots = this.$slots.default;
         if(slots && Array.isArray(slots)){
             slots.map(item => {
                 if(!item.tag){
-                    self.text = item.text;
+                    this.text = item.text;
                 }
-            })
+            }, this)
         }
         // console.log(this.$slots.default[0].text);
     },
