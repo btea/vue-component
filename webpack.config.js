@@ -39,6 +39,13 @@ module.exports = {
                     loader: 'html-loader',
                     options: {minimize: true}
                 }
+            },
+            {
+                test: /\.(woff2|woff|eot|ttf|otf)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: 'fonts/[name].[hash:8].[ext]'
+                }
             }
         ]
     },

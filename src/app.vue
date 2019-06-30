@@ -24,6 +24,18 @@
             :sortable="sort"
             :cell-style="cellStyle">
         </be-table>
+
+        <el-cascader 
+        :show-all-levels="false" 
+        :options="options"
+        :props="{checkStrictly: true, value: 'id', label: 'name'}"
+        :value="treeData"
+        @visable-change="getData"
+        ></el-cascader>
+        <!-- <te-cascader></te-cascader> -->
+        
+        <router-link v-for="(p, i) in routerList" :key="i" :to="p"><h2>{{p.desc}}</h2></router-link>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -34,6 +46,12 @@
 
 import beTable  from './be-table';
 import beTableColumn from './be-table-column';
+import teCascader from './te-cascader';
+
+
+// 路由测试
+import routerLink  from './route/hash/routerLink';
+import routerView from './route/hash/routerView';
 
 export default {
     data(){
@@ -66,7 +84,32 @@ export default {
                 })()
             },
             sort: [1, 2, 3],
-            tableKey: Math.random().toString(16).slice(2)
+            tableKey: Math.random().toString(16).slice(2),
+            options: [{
+                id: '1',
+                name: '河南',
+                children: [
+                    {
+                        id: '2',
+                        name: '郑州',
+                        children: [
+                            {
+                                id: '5',
+                                name: '新密市'
+                            }
+                        ]
+                    },
+                    {
+                        id: '3',
+                        name: '济源'
+                    }
+                ]
+            }],
+            treeData: ['5'],
+            routerList: [
+                {path: '/a', name: 'a', desc: '个人中心'},
+                {path: '/b', name: 'b', desc: '菜单'}
+            ]
         }
     },
     methods: {
@@ -79,6 +122,10 @@ export default {
         },
         cellStyle(i, item){
             console.log(i, item);
+        },
+        getData(status){
+            debugger
+            console.log(this.treeData);
         }
     },
     // 局部注册组件
@@ -87,7 +134,10 @@ export default {
     // },
     components: {
         beTable,
-        beTableColumn
+        beTableColumn,
+        teCascader,
+        routerLink,
+        routerView
     }
 }
 </script>
