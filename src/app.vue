@@ -107,8 +107,8 @@ export default {
             }],
             treeData: ['5'],
             routerList: [
-                {path: '/a', name: 'a', desc: '个人中心'},
-                {path: '/b', name: 'b', desc: '菜单'}
+                {path: '/a', name: 'a', desc: '个人中心', type: 'history'},
+                {path: '/b', name: 'b', desc: '菜单', type: 'history'}
             ]
         }
     },

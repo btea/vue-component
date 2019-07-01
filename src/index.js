@@ -17,7 +17,12 @@ Vue.use(ElementUI);
 Vue.component('Button',Button);
 Vue.component('Alert',Alert);
 
+import router from './route/hash/route';
+
 new Vue({
+    data: {
+        router
+    },
     el: '#app',
     render: h => h(App)
 })

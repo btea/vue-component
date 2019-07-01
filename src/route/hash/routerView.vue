@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import router from './route';
+import event from './event';
 
 export default {
     data(){
@@ -24,6 +24,9 @@ export default {
     mounted(){
         this.onHashChange();
         this.refresh();
+
+        // history
+        this.historyContent();
     },
     beforeDestory(){
         window.removeEventListener('hashchange', this.boundHashChange);
@@ -31,6 +34,7 @@ export default {
     methods: {
         onHashChange(){
             const path = window.location.href.split('#')[1];
+            let router = this.$root.router;
             console.log('%c hash', 'color: #6cf');
             if(!path){return;}
             this.routerView = router[path].template;
@@ -51,8 +55,17 @@ export default {
         contentSwitch(state){
             if(!state){return}
             let path = state.path;
+            this.contentShow(path);
+        },
+        contentShow(path){
+            let router = this.$root.router;
             this.routerView = router[path].template;
             this.title.innerText = router[path].name;
+        },
+        historyContent(){
+            event.$on('history', p => {
+                this.contentShow(p);
+            })
         }
     }
 }

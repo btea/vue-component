@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import event from './event';
+
 export default {
     props: {
         to: {
@@ -20,6 +22,7 @@ export default {
             }
             if(type === 'history'){
                 history.pushState(obj, '', path);
+                event.$emit('history', path);
             }
         }
     }
