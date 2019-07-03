@@ -12,8 +12,8 @@
         </div>
         <ul class="body">
             <li class="list-item" v-for="(d, i) in tableData" :key="i" :class="{mark: Number(d.overstep) > 0}">
-                <div class="val" v-for="(v, j) in headerProp.slice(0, -1)" :key="j" :class="v" :style="{width: header[j].width - 1 + 'px'}">{{d[v]}}</div>
-                <div class="val" :class="headerProp[last]" :style="{width: header[last].width - 1 + 'px'}" v-html="d[headerProp[last]]"></div>
+                <div class="val" v-for="(v, j) in headerProp.slice(0, -1)" :key="j" :class="v" :style="cellCalc(header[j].width, d, j)">{{d[v]}}</div>
+                <div class="val" :class="headerProp[last]" :style="{width: header[last].width + 'px'}" v-html="d[headerProp[last]]"></div>
             </li>
         </ul>
     </div>
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    props: ['header', 'data', 'sty', 'sortable'],
+    props: ['header', 'data', 'sty', 'sortable', 'cell-style'],
     data(){
         let $header = this.header;
         return {
@@ -59,6 +59,20 @@ export default {
             }
         },
 
+    },
+    computed: {
+        cellCalc(ins){
+            /**
+             * @params ins指向当前实例
+            */
+            return function(w, val, i){
+                let style = ins.cellStyle(i, val);
+                return {
+                    width: `${w}px`,
+                    ...style
+                }
+            }
+        }
     }
 }
 </script>
@@ -81,6 +95,7 @@ export default {
                 vertical-align: middle;
                 padding: $padding;
                 font-weight: 700;
+                box-sizing: border-box;
             }
             .is-sortable{
                 cursor: pointer;
@@ -106,6 +121,16 @@ export default {
             max-height: 300px;
             overflow-x: hidden;
             overflow-y: auto;
+            &::-webkit-scrollbar{
+                width: 10px;
+                border-radius: 10px;
+                background: #efefef;
+            }
+            &::-webkit-scrollbar-thumb{
+                height: 30px;
+                border-radius: 10px;
+                background: aqua;
+            }
             .list-item{
                 border-top: 1px solid $c;
                 font-size: 0;
@@ -121,6 +146,7 @@ export default {
                     // margin-bottom:-3000px;
                     padding: $padding; 
                     display: table-cell;
+                    box-sizing: border-box;
                 }
                 .val~div{
                     border-left: 1px solid $c;

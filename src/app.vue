@@ -17,13 +17,16 @@
         </Alert>
         <div>github commit test</div>
         <!-- <v-uploader></v-uploader> -->
-        <be-table 
-            :data="water.data" 
-            :header="water.header" 
-            :key="tableKey"
-            :sortable="sort"
-            :cell-style="cellStyle">
-        </be-table>
+        <div class="table">
+            <be-table 
+                :data="water.data" 
+                :header="water.header" 
+                :key="tableKey"
+                :sortable="sort"
+                :cell-style="cellStyle">
+            </be-table>
+        </div>
+        
     </div>
 </template>
 
@@ -45,15 +48,15 @@ export default {
                     {prop: 'station', label: '水位站', width: '80'},
                     {prop: 'rain', label: '当前水位(m)', width: '75'},
                     {prop: 'limit', label: '汛限水位(m)', width: '75'},
-                    {prop: 'overstep', label: '超汛限水位(m)', width: '90'},
+                    {prop: 'overstep', label: '超汛限水位(m)', width: '80'},
                     {prop: 'status', label: '关注', width: '40'}
                 ],
                 data: (() => {
-                    let arr = [], len = 10;
+                    let arr = [], len = 1000;
                     for(let i = 0; i < len; i++){
                         arr.push({
                             stationId: '123',
-                            station: '站名站名站名站名站名站名站名站名站名站名站名',
+                            station: '站名站名站名站名站名站名',
                             rain: this.randomVal(15,5),
                             limit: this.randomVal(30,20),
                             overstep: '-5',
@@ -78,7 +81,20 @@ export default {
             console.log('bilibili');
         },
         cellStyle(i, item){
-            console.log(i, item);
+            if(i === 1){
+                if(item.rain > 10){
+                    return {color: 'red'};
+                }
+            }
+            if(i === 2){
+                if(item.limit > 25){
+                    return {
+                        color: 'aqua',
+                        fontWeight: 700    
+                    };
+                }
+            }
+            return {};
         }
     },
     // 局部注册组件
@@ -91,4 +107,11 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .table{
+        width: 380px;
+    }
+</style>
+
 
