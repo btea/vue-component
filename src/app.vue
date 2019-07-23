@@ -26,7 +26,7 @@
                 :cell-style="cellStyle">
             </be-table>
         </div>
-
+        <te-color-picker></te-color-picker>
         <router-link v-for="(p, i) in routerList" :key="i" :to="p"><h2>{{p.desc}}</h2></router-link>
         <router-view></router-view>
     </div>
@@ -40,7 +40,7 @@
 import beTable  from './be-table';
 import beTableColumn from './be-table-column';
 import teCascader from './te-cascader';
-
+import teColorPicker from './te-color-picker';
 
 // 路由测试
 import routerLink  from './route/hash/routerLink';
@@ -141,6 +141,7 @@ export default {
         beTable,
         beTableColumn,
         teCascader,
+        teColorPicker,
         routerLink,
         routerView
     }
