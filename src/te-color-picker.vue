@@ -2,7 +2,11 @@
     <div class="te-color-picker">
         <div class="te-color-box" :style="{background: c}" ref="colorPicker" @click="startPicker($event)"></div>
         <div class="te-paint-color">
-            <div class="te-paint-container"></div>
+            <div class="te-paint-container" :style="{background: c}">
+                <div class="te-color-white"></div>
+                <div class="te-color-black"></div>
+                <div class="te-color-cursor"></div>
+            </div>
             <div class="te-color-change"></div>
             <div class="te-color-picker-value"><input type="text"></div>
             <div class="te-color-picker-btn">确定</div>
@@ -45,6 +49,8 @@ export default {
     }
     $h: 180px;
     $w: 40px;
+    $H: 250px;
+    $W: 320PX;
     .te-color-picker{
         width: $w;
         height: $w;
@@ -59,9 +65,28 @@ export default {
             height: $w;
         }
         .te-paint-color{
-            width: 320px;
-            height: 250px;
+            width: $W;
+            height: $H;
             position: absolute;
+            .te-paint-container{
+                width: $W - 60PX;
+                height: $H - 30px;
+                position: relative;
+                .te-color-white,.te-color-black{
+                   position: absolute;
+                   left: 0;
+                   top: 0;
+                   right: 0;
+                   bottom: 0;
+                }
+                .te-color-black{
+                    background: linear-gradient(0deg,#000,transparent);
+                }
+                .te-color-white{
+                    background: linear-gradient(90deg,#fff,hsla(0,0%,100%,0))
+                }
+            }
+            
         }
         .te-color-change{
             width: 10px;
