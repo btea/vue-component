@@ -44,17 +44,19 @@ export default {
             this.ctx = ele.getContext('2d');
             this.drawColor();
             this.drawColorBar();
+            document.body.appendChild(ele);
+            console.log(this.ctx);
         },
         drawColor: function(){
             this.ctx.fillStyle = this.c;
             this.ctx.fillRect(0, 0, this.w, this.h);
-            this.drawWhite();
             this.drawBlack();
+            this.drawWhite();
             this.datas = this.ctx.getImageData(0, 0, this.w, this.h).data;
         },
         drawWhite(){
             // 白色从下往上
-            let gnt = this.ctx.createLinearGradient(0, this.h, 0, 0);
+            let gnt = this.ctx.createLinearGradient(0, 0, this.w, this.h);
             gnt.addColorStop(0, '#fff');
             gnt.addColorStop(1, 'rgba(255,255,255,0)');
             this.ctx.fillStyle = gnt;
