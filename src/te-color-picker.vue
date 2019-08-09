@@ -2,9 +2,9 @@
     <div class="te-color-picker">
         <div class="te-color-box" :style="{background: color}" ref="colorPicker" @click="startPicker($event)"></div>
         <div class="te-paint-color">
-            <div class="te-paint-container" :style="{background: c}" @click="colorPicker($event)">
+            <div class="te-paint-container" :style="{background: c}">
                 <div class="te-color-white"></div>
-                <div class="te-color-black"></div>
+                <div class="te-color-black" @click="colorPickerPoint($event)"></div>
                 <div class="te-color-cursor" :style="{right: right + 'px', top: top + 'px'}"></div>
             </div>
             <div class="te-color-change" @click="barColorPicker($event)"><div class="te-color-picker-bar" :style="{top: barTop + 'px'}"></div></div>
@@ -100,14 +100,16 @@ export default {
             this.right = this.top = 0;
             this.drawColor();
         },
-        colorPicker(e){
+        colorPickerPoint(e){
             let x, y;
             x = e.layerX;
             y = e.layerY;
             this.top = y - 5;
             this.right = this.w - x - 5;
-            this.color = this.getColorValue(this.datas, this.w, x, y);
-            this.valueConvert(this.color);
+            // this.color = this.getColorValue(this.datas, this.w, x, y);
+            // this.valueConvert(this.color);
+            console.log('点击');
+            this.getHsv();
         },
         valueConvert(v){
             let str = '#';
@@ -166,6 +168,63 @@ export default {
         // },
         positionJudge(){
             
+        },
+        // 颜色相互转换http://www.easyrgb.com/en/math.php#text21
+        // 通过hsv拿到对应的颜色值，再转换成对应的hex值
+        getHsv(){
+            let h, s, v, c;
+            h = this.getHue();
+            s = this.getSaturation();
+            v = this.getValue();
+            c = this.hsvToRgb(h, s, v);
+            this.color = `rgb(${c.R},${c.G},${c.B})`;
+            this.rV = c.R;
+            this.gV = c.G;
+            this.bV = c.B;
+            this.valueConvert();
+        },
+        getHue(){
+            // 通过top坐标和hue元素高度计算出比例值，然后乘以360度计算出当前位置所处的度数
+            let top = this.barTop;
+            let hueHeight = this.barH;
+            let hue = Math.round((top / hueHeight) * 100) / 100;
+            return hue;
+        },
+        getSaturation(){
+            let saturation = Math.round((this.w - this.right) / this.w * 100) / 100;
+            return saturation;
+        },
+        getValue(){
+            let v = Math.round((1 - this.top / this.h) * 100) / 100;
+            return v;
+        },
+        hsvToRgb(H, S, V){
+            let R, G, B;
+            let var_h, var_i, var_1, var_2, var_3, var_r, var_g, var_b;
+            if ( S == 0 ){
+                R = V * 255
+                G = V * 255
+                B = V * 255
+            }else {
+                var_h = H * 6
+                if ( var_h == 6 ) var_h = 0      //H must be < 1
+                var_i = Math.floor(var_h );           //Or ... var_i = floor( var_h )
+                var_1 = V * ( 1 - S )
+                var_2 = V * ( 1 - S * ( var_h - var_i ) )
+                var_3 = V * ( 1 - S * ( 1 - ( var_h - var_i ) ) )
+
+                if      ( var_i == 0 ) { var_r = V     ; var_g = var_3 ; var_b = var_1 }
+                else if ( var_i == 1 ) { var_r = var_2 ; var_g = V     ; var_b = var_1 }
+                else if ( var_i == 2 ) { var_r = var_1 ; var_g = V     ; var_b = var_3 }
+                else if ( var_i == 3 ) { var_r = var_1 ; var_g = var_2 ; var_b = V     }
+                else if ( var_i == 4 ) { var_r = var_3 ; var_g = var_1 ; var_b = V     }
+                else                   { var_r = V     ; var_g = var_1 ; var_b = var_2 }
+
+                R = Math.floor(var_r * 255);
+                G = Math.floor(var_g * 255);
+                B = Math.floor(var_b * 255);
+            }
+            return {R, G, B};
         }
     }
 }
@@ -230,6 +289,7 @@ export default {
                 }
                 .te-color-black{
                     background: linear-gradient(0deg,#000,transparent);
+                    z-index: 1;
                 }
                 .te-color-white{
                     background: linear-gradient(90deg,#fff,hsla(0,0%,100%,0))
@@ -242,6 +302,7 @@ export default {
             height: 6px;
             width: 6px;
             @include radius(10px);
+            z-index: 2;
         }
         .te-color-change{
             position: absolute;

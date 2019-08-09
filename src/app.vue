@@ -29,6 +29,7 @@
         <te-color-picker></te-color-picker>
         <router-link v-for="(p, i) in routerList" :key="i" :to="p"><h2>{{p.desc}}</h2></router-link>
         <router-view></router-view>
+        <video src="" id="video"></video>
     </div>
 </template>
 
