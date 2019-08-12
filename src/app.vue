@@ -26,7 +26,7 @@
                 :cell-style="cellStyle">
             </be-table>
         </div>
-        <te-color-picker></te-color-picker>
+        <te-color-picker value="#0ff"></te-color-picker>
         <router-link v-for="(p, i) in routerList" :key="i" :to="p"><h2>{{p.desc}}</h2></router-link>
         <router-view></router-view>
         <video src="" id="video"></video>

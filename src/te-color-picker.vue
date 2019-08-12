@@ -1,13 +1,13 @@
 <template>
     <div class="te-color-picker">
         <div class="te-color-box" :style="{background: color}" ref="colorPicker" @click="startPicker($event)"></div>
-        <div class="te-paint-color">
+        <div class="te-paint-color" :style="{height: boxHeight + 'px'}">
             <div class="te-paint-container" :style="{background: c}">
                 <div class="te-color-white"></div>
                 <div class="te-color-black" @click="colorPickerPoint($event)"></div>
-                <div class="te-color-cursor" :style="{right: right + 'px', top: top + 'px'}"></div>
+                <div class="te-color-cursor" @click.stop="void 0" :style="{right: right + 'px', top: top + 'px'}"></div>
             </div>
-            <div class="te-color-change" @click="barColorPicker($event)"><div class="te-color-picker-bar" :style="{top: barTop + 'px'}"></div></div>
+            <div class="te-color-change" @click="barColorPicker($event)"><div class="te-color-picker-bar" @click.stop="void 0" :style="{top: barTop + 'px'}"></div></div>
             <div class="te-color-picker-value"><input type="text" readonly v-model="colorValue"></div>
             <div class="te-color-picker-btn" @click="getResult">确定</div>
         </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    props: [],
+    props: ['value'],
     data(){
         return {
             color: '#6cf',
@@ -29,12 +29,13 @@ export default {
             barH: 180,
             barTop: 0,
             isCanMove: false,
-            colorValue: ''
+            colorValue: '',
+            boxHeight: 0,
+            isColorBoxShow: false
         }
     },
     mounted: function(){
         this.initElement();
-        
     },
     methods: {
         initElement(){
@@ -44,10 +45,27 @@ export default {
             this.ctx = ele.getContext('2d');
             this.drawColor();
             this.drawColorBar();
-            document.body.appendChild(ele);
-            console.log(this.ctx);
+            // document.body.appendChild(ele);
+
+            this.initColor();
         },
-        drawColor: function(){
+        initColor(){
+            let c = this.value;
+            if(c){
+                this.color = this.c = c;
+                let v = this.HexToRgb(c);
+                this.RgbToHsv(v.R, v.G, v.B);
+            }
+        },
+        startPicker(){
+            if(this.isColorBoxShow){
+                this.boxHeight = 0;
+            }else{
+                this.boxHeight = 250;
+            }
+            this.isColorBoxShow = !this.isColorBoxShow;
+        },
+        drawColor(){
             this.ctx.fillStyle = this.c;
             this.ctx.fillRect(0, 0, this.w, this.h);
             this.drawBlack();
@@ -168,9 +186,7 @@ export default {
         //         }
         //     }
         // },
-        positionJudge(){
-            
-        },
+
         // 颜色相互转换http://www.easyrgb.com/en/math.php#text21
         // 通过hsv拿到对应的颜色值，再转换成对应的hex值
         getHsv(){
@@ -227,6 +243,75 @@ export default {
                 B = Math.floor(var_b * 255);
             }
             return {R, G, B};
+        },
+        HexToRgb(v){
+            if(typeof v !== 'string'){
+                throw Error('this function first parameter must be a string');
+            }
+            if(v.length !== 4 && v.length !== 7){
+                throw Error('this hex value is not a avaliable value');
+            }
+            let s = v.slice(1), R, G, B;
+            if(s.length === 3){
+                R = s[0] + s[0];
+                G = s[1] + s[1];
+                B = s[2] + s[2];
+            }else{
+                R = s[0] + s[1];
+                G = s[2] + s[3];
+                B = s[4] + s[5];
+            }
+            R = parseInt(R, 16);
+            G = parseInt(G, 16);
+            B = parseInt(B, 16);
+            return {R, G, B};
+        },
+        RgbToHsv(R, G, B){
+            let var_R, var_G, var_B, var_Min, var_Max, del_Max, del_R, del_G, del_B, H, S, V;
+
+            var_R = ( R / 255 );
+            var_G = ( G / 255 );
+            var_B = ( B / 255 );
+
+            var_Min = Math.min( var_R, var_G, var_B );    //Min. value of RGB
+            var_Max = Math.max( var_R, var_G, var_B );    //Max. value of RGB
+            del_Max = var_Max - var_Min;             //Delta RGB value
+
+            V = var_Max;
+
+            if ( del_Max == 0 )                     //This is a gray, no chroma...
+            {
+                H = 0
+                S = 0
+            }
+            else                                    //Chromatic data...
+            {
+                S = del_Max / var_Max;
+
+                del_R = ( ( ( var_Max - var_R ) / 6 ) + ( del_Max / 2 ) ) / del_Max;
+                del_G = ( ( ( var_Max - var_G ) / 6 ) + ( del_Max / 2 ) ) / del_Max;
+                del_B = ( ( ( var_Max - var_B ) / 6 ) + ( del_Max / 2 ) ) / del_Max;
+
+                if ( var_R == var_Max ){
+                    H = del_B - del_G
+                }else if ( var_G == var_Max ) {
+                    H = ( 1 / 3 ) + del_R - del_B
+                }else if ( var_B == var_Max ) {
+                    H = ( 2 / 3 ) + del_G - del_R
+                }
+                if ( H < 0 ) H += 1
+                if ( H > 1 ) H -= 1
+            }
+            this.barPointPosition(H, S, V);
+            console.log(H, S, V);
+        },
+        barPointPosition(H, S, V){
+            this.barTop = this.barH * H;
+            this.right = this.w * (1 - S);
+            this.top = this.h * (1 - V);
+        },
+        pointPosition(){
+
         }
     }
 }
@@ -267,14 +352,17 @@ export default {
             border: 1px solid #e6e6e6;
             width: $w;
             height: $w;
+            cursor: pointer;
         }
         .te-paint-color{
             width: $W;
-            height: $H;
+            // height: $H;
             position: absolute;
             background: #fff;
-            border: 1px solid #ebeef5;
+            // border: 1px solid #ebeef5;
             box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+            overflow: hidden;
+            transition: all .08s;
             @include radius(5px);
             .te-paint-container{
                 width: $W - 60PX;
