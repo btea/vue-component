@@ -126,9 +126,11 @@ export default {
             y = e.layerY;
             this.top = y - 5;
             this.right = this.w - x - 5;
+
+            this.top = this.top < 0 ? 0 : this.top;
+            this.right = this.right < 0 ? 0 : this.right;
             // this.color = this.getColorValue(this.datas, this.w, x, y);
             // this.valueConvert(this.color);
-            console.log('点击');
             this.getHsv();
         },
         valueConvert(v){
@@ -309,9 +311,6 @@ export default {
             this.barTop = this.barH * H;
             this.right = this.w * (1 - S);
             this.top = this.h * (1 - V);
-        },
-        pointPosition(){
-
         }
     }
 }
