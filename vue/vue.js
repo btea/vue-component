@@ -32,7 +32,6 @@ class Vue{
 
     // 劫持监听所有数据
     observer(data){
-        let that = this;
         Object.keys(data).forEach(key => {
             let value = data[key];
             that.watcherTask[key] = [];
@@ -53,7 +52,7 @@ class Vue{
                 }
             })
 
-        })
+        }, this);
     }
 
     // 解析dom
@@ -136,3 +135,5 @@ class Watcher{
         this.el[this.type] = this.vm.data[this.value];
     }
 }
+
+

@@ -30,6 +30,8 @@
         <router-link v-for="(p, i) in routerList" :key="i" :to="p"><h2>{{p.desc}}</h2></router-link>
         <router-view></router-view>
         <video src="" id="video"></video>
+
+        <attrs @click="buttonEvent($event)" type="checkbox" data-name="this is a inherit attr"></attrs>
     </div>
 </template>
 
@@ -42,6 +44,9 @@ import beTable  from './be-table';
 import beTableColumn from './be-table-column';
 import teCascader from './te-cascader';
 import teColorPicker from './te-color-picker';
+
+// $attrs/$listeners
+import attrs from './attrs/attrs';
 
 // 路由测试
 import routerLink  from './route/hash/routerLink';
@@ -112,10 +117,7 @@ export default {
         },
         bili(target){
             console.log(target);
-            console.log('bilibili');
-
-
-        
+            console.log('bilibili');        
         },
         cellStyle(i, item){
             if(i === 1){
@@ -132,7 +134,10 @@ export default {
                 }
             }
             return {};
-        }
+        },
+        buttonEvent(e){
+            console.log(e.target);
+        },
     },
     // 局部注册组件
     // components: {
@@ -144,7 +149,8 @@ export default {
         teCascader,
         teColorPicker,
         routerLink,
-        routerView
+        routerView,
+        attrs
     }
 }
 </script>
