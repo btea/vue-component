@@ -32,6 +32,7 @@
         <video src="" id="video"></video>
 
         <attrs @click="buttonEvent($event)" type="checkbox" data-name="this is a inherit attr"></attrs>
+        <circle></circle>
     </div>
 </template>
 
@@ -44,6 +45,7 @@ import beTable  from './be-table';
 import beTableColumn from './be-table-column';
 import teCascader from './te-cascader';
 import teColorPicker from './te-color-picker';
+import circle from './circle';
 
 // $attrs/$listeners
 import attrs from './attrs/attrs';
@@ -150,7 +152,8 @@ export default {
         teColorPicker,
         routerLink,
         routerView,
-        attrs
+        attrs,
+        circle
     }
 }
 </script>
