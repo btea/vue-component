@@ -35,6 +35,7 @@
         <div style="width: 400px; height: 400px;">
             <circle-ring :options="{}"></circle-ring>
         </div>
+        <star></star>
     </div>
 </template>
 
@@ -48,7 +49,7 @@ import beTableColumn from './be-table-column';
 import teCascader from './te-cascader';
 import teColorPicker from './te-color-picker';
 import circleRing from './circle';
-
+import star from './star';
 // $attrs/$listeners
 import attrs from './attrs/attrs';
 
@@ -155,7 +156,8 @@ export default {
         routerLink,
         routerView,
         attrs,
-        circleRing
+        circleRing,
+        star
     }
 }
 </script>
