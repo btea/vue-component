@@ -36,6 +36,7 @@
             <circle-ring :options="{}"></circle-ring>
         </div>
         <star></star>
+		<line-flow></line-flow>
     </div>
 </template>
 
@@ -49,7 +50,8 @@ import beTableColumn from './be-table-column';
 import teCascader from './te-cascader';
 import teColorPicker from './te-color-picker';
 import circleRing from './circle';
-import star from './star';
+import star from './starSky';
+import lineFlow from './lineFlow';
 // $attrs/$listeners
 import attrs from './attrs/attrs';
 
@@ -157,7 +159,8 @@ export default {
         routerView,
         attrs,
         circleRing,
-        star
+		star,
+		lineFlow
     }
 }
 </script>

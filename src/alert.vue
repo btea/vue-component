@@ -15,6 +15,7 @@ export default {
        
     },
     created(){
+        console.log(this.$slots);
         this.tips = this.render(this.$slots.default);
     },
     methods: {
