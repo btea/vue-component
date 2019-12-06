@@ -37,6 +37,7 @@
         </div>
         <star></star>
 		<line-flow></line-flow>
+		<bubble-flow></bubble-flow>
     </div>
 </template>
 
@@ -52,6 +53,7 @@ import teColorPicker from './te-color-picker';
 import circleRing from './circle';
 import star from './starSky';
 import lineFlow from './lineFlow';
+import bubbleFlow from './bubbleFlow'
 // $attrs/$listeners
 import attrs from './attrs/attrs';
 
@@ -160,7 +162,8 @@ export default {
         attrs,
         circleRing,
 		star,
-		lineFlow
+		lineFlow,
+		bubbleFlow
     }
 }
 </script>
