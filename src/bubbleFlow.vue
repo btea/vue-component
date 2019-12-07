@@ -78,6 +78,7 @@ export default {
 				let $x, $y
 				$x = bubble.x - 20
 				$y = bubble.y - bubble.r + 15
+				
 				this.ctx.fillStyle = C
 				// this.ctx.translate($x + w / 2, $y + h / 2)
 				// this.ctx.rotate(-20 * Math.PI / 180)
