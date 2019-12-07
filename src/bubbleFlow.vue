@@ -32,7 +32,8 @@ export default {
             this.el.height = h * ratio
             this.el.style.width  = w + 'px'
             this.el.style.height = h + 'px'
-
+			
+			this.bubbles()
             this.startDraw()
             // this.startAnimation();
         },
@@ -46,9 +47,7 @@ export default {
             return (window.devicePixelRatio || 1) / backingStore;
 		},
 		startDraw() {
-			this.bubbles()
-
-			this.lists.forEach(bubble => {
+			this.lists.forEach((bubble, i) => {
 				let r1 = bubble.r * 0.6
 				let rgb = bubble.rgb.join(',')
 				let c = this.ctx.createRadialGradient(bubble.x, bubble.y, r1, bubble.x, bubble.y, bubble.r)
@@ -67,20 +66,32 @@ export default {
 				c_c.addColorStop(.8, `rgba(255, 255, 255, .7)`)
 				c_c.addColorStop(1, 'rgba(255, 255, 255, .8)')
 				this.ctx.fillStyle = c_c
-				console.log('children', children)
 				this.ctx.lineTo(children.x, children.y)
 				this.ctx.arc(children.x, children.y, children.r, Math.PI * (- 5 / 6), 0)
 				this.ctx.fill()
+
 				this.ctx.save()
 				this.ctx.beginPath()
 				let w = 20
 				let h = 10
-				this.ctx.fillStyle = '#000'
-				this.ctx.rotate(20 * Math.PI / 180)
-				this.ctx.rect(bubble.x - 20, bubble.y - bubble.r + 25, w, h)
+				let C = 'rgba(255, 255, 255, .5)'
+				let $x, $y
+				$x = bubble.x - 20
+				$y = bubble.y - bubble.r + 15
+				this.ctx.fillStyle = C
+				// this.ctx.translate($x + w / 2, $y + h / 2)
+				// this.ctx.rotate(-20 * Math.PI / 180)
+				// this.ctx.rect(-w / 2, -h / 2, w, h)
+				// this.ctx.fill()
+				// this.ctx.beginPath()
+				// this.ctx.arc(-w / 2, 0, h / 2, 0, Math.PI * 2)
+				// this.ctx.fill()
+				// this.ctx.beginPath()
+				// this.ctx.arc(w / 2, 0, h / 2, 0, Math.PI * 2)
+				// this.ctx.fill()
+				this.ctx.ellipse($x, $y, w / 2, h / 2, -Math.PI / 8, 0, Math.PI * 2)
 				this.ctx.fill()
 				this.ctx.restore()
-				
 			})
 		},
 		bubbles() {

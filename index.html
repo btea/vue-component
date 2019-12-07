@@ -8,6 +8,20 @@
     <title>vuex~~</title>
 </head>
 <body>
-    <div id="app"></div>
+	<div id="app"></div>
+	
+	<canvas width="600" height="400"></canvas>
+	<script>
+		let ref = document.getElementsByTagName('canvas')[0]
+		let ctx = ref.getContext('2d')
+		ctx.save()
+		ctx.fillStyle = '#6cf'
+		ctx.rotate(Math.PI / 4)
+		ctx.rect(50, 20, 10, 10)
+		ctx.fill()
+		ctx.restore()
+		ctx.rect(50, 50, 20, 20)
+		ctx.fill()
+	</script>
 </body>
 </html>
