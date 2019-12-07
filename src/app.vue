@@ -35,8 +35,8 @@
         <div style="width: 400px; height: 400px;">
             <circle-ring :options="{}"></circle-ring>
         </div>
-        <star></star>
-		<line-flow></line-flow>
+        <!-- <star></star> -->
+		<!-- <line-flow></line-flow> -->
 		<bubble-flow></bubble-flow>
     </div>
 </template>

@@ -35,7 +35,9 @@ export default {
 			
 			this.bubbles()
             this.startDraw()
-            // this.startAnimation();
+			// this.startAnimation();
+			
+			this.animation()
         },
         getPixelRatio(context){
             let backingStore = context.backingStorePixelRatio ||
@@ -46,7 +48,17 @@ export default {
                 context.backingStorePixelRatio || 1;
             return (window.devicePixelRatio || 1) / backingStore;
 		},
+		animation() {
+			let timer
+			timer = setInterval(() => {
+				this.startDraw()
+				// if(this.lists[0].y <= 0) {
+				// 	clearInterval(timer)
+				// }
+			}, 16.7)
+		},
 		startDraw() {
+			this.ctx.clearRect(0, 0, this.width, this.height)
 			this.lists.forEach((bubble, i) => {
 				let r1 = bubble.r * 0.6
 				let rgb = bubble.rgb.join(',')
@@ -93,6 +105,15 @@ export default {
 				this.ctx.ellipse($x, $y, w / 2, h / 2, -Math.PI / 8, 0, Math.PI * 2)
 				this.ctx.fill()
 				this.ctx.restore()
+				bubble.y = bubble.y - bubble.s
+				children.y = children.y - bubble.s
+				if (bubble.y <= 0) {
+					bubble.y = this.height
+					children.y = this.height - (bubble.r - children.r)
+					bubble.c = this.color()
+					bubble.rgb = this.colorTorgb(bubble.c)
+					children.c = bubble.c
+				}
 			})
 		},
 		bubbles() {
@@ -106,7 +127,7 @@ export default {
 			let obj = {}
 			let r = this.random(this.max, this.min)
 			let r1 = r * 0.8
-			let s = (Math.random()).toFixed(1)
+			let s = (Math.random() * 5).toFixed(1)
 			obj.x = this.random(this.width, r)
 			obj.y = this.height - r
 			obj.s = s
