@@ -107,12 +107,16 @@ export default {
 				this.ctx.restore()
 				bubble.y = bubble.y - bubble.s
 				children.y = children.y - bubble.s
+				// bubble.x += 0.1
+				// children.x += 0.1
 				if (bubble.y <= 0) {
 					bubble.y = this.height
 					children.y = this.height - (bubble.r - children.r)
 					bubble.c = this.color()
+					// bubble.x = this.random(this.width, r)
 					bubble.rgb = this.colorTorgb(bubble.c)
 					children.c = bubble.c
+					// children.x = bubble.x
 				}
 			})
 		},
