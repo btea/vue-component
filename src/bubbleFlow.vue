@@ -7,7 +7,7 @@ export default {
 		return {
 			width: null,
 			height: null,
-			num: 10,
+			num: 20,
 			max: 100,
 			min: 50
 		}
@@ -107,13 +107,13 @@ export default {
 				this.ctx.restore()
 				bubble.y = bubble.y - bubble.s
 				children.y = children.y - bubble.s
-				// bubble.x += 0.1
-				// children.x += 0.1
-				if (bubble.y <= 0) {
+				bubble.x += 0.5
+				children.x += 0.5
+				if (bubble.y <= bubble.r || bubble.x >= this.width) {
 					bubble.y = this.height
 					children.y = this.height - (bubble.r - children.r)
 					bubble.c = this.color()
-					// bubble.x = this.random(this.width, r)
+					children.x = bubble.x = this.random(this.width - bubble.r, bubble.r)
 					bubble.rgb = this.colorTorgb(bubble.c)
 					children.c = bubble.c
 					// children.x = bubble.x
@@ -132,7 +132,7 @@ export default {
 			let r = this.random(this.max, this.min)
 			let r1 = r * 0.8
 			let s = (Math.random() * 5).toFixed(1)
-			obj.x = this.random(this.width, r)
+			obj.x = this.random(this.width - r, r)
 			obj.y = this.height - r
 			obj.s = s
 			obj.c = this.color()
