@@ -37,7 +37,13 @@
         </div>
         <!-- <star></star> -->
 		<!-- <line-flow></line-flow> -->
-		<bubble-flow></bubble-flow>
+		<!-- <bubble-flow></bubble-flow>
+		<div class="box" style="width: 600px; height: 600px; position: relative;">
+			<radar></radar>
+		</div> -->
+		<div class="dial" style="width: 600px; height: 600px; position: relative; margin: 0 auto;">
+			<area-radar></area-radar>
+		</div>
     </div>
 </template>
 
@@ -54,6 +60,8 @@ import circleRing from './circle';
 import star from './starSky';
 import lineFlow from './lineFlow';
 import bubbleFlow from './bubbleFlow'
+import radar from './radar'
+import areaRadar from './areaRadar'
 // $attrs/$listeners
 import attrs from './attrs/attrs';
 
@@ -163,7 +171,9 @@ export default {
         circleRing,
 		star,
 		lineFlow,
-		bubbleFlow
+		bubbleFlow, 
+		radar, 
+		areaRadar
     }
 }
 </script>
