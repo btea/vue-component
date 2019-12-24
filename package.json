@@ -48,7 +48,6 @@
   },
   "dependencies": {
     "animejs": "^2.2.0",
-    "axios": "^0.19.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.10.1",
     "es6-promise": "^4.2.4",

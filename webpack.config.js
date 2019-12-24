@@ -72,7 +72,7 @@ module.exports = {
                 target: 'http://echarts.baidu.com',
                 changeOrigin: true,
                 pathRewrite: {"^/baidu": "/"}
-            }
+			}
         }
     }
 }
